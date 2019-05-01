@@ -7,27 +7,28 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
+
+
 namespace Exercise_2___Development_C
 {
     class Program
     {
+        
         public static IWebDriver driver;
-        public static void Main(string[] args)
-        {
-            OpenBrowser();
-            Execution obj2 = new Execution();
-            obj2.execution();
-            FillSignUp();
-            Birthday();
-            Console.ReadLine();
-        }
-
-        public static void OpenBrowser()
+        
+        public static void SetUpBrowser()
         {
             driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.facebook.com");
+            
         }
-        public void WaitForElement(By Locator, int seconds)
+        
+        public static void Main(string[] args)
+        {
+        }
+
+        
+        public static void WaitForElement(By Locator, int seconds)
         {
             try
             {
@@ -39,13 +40,14 @@ namespace Exercise_2___Development_C
             }
         }
 
-        public static void Click(IWebElement element1)
+        public static void Click(string element)
         {
-            element1.Click();
+            driver.FindElement(By.Id(element)).Click();
         }
 
-        public void VAsserts(string element1, string element2)
+        public  static void VAsserts(string element1, string element2)
         {
+
             try
             {
                 Assert.AreEqual(element1, element2);
@@ -57,30 +59,13 @@ namespace Exercise_2___Development_C
             }
         } 
 
-        public static void FillSignUp()
+        public static void EnterText(string element, string value)
         {
-            IWebElement Name = driver.FindElement(By.XPath("//input[@name='firstname']"));
-            Name.SendKeys("ELIZABETH");
-            IWebElement LastName = driver.FindElement(By.XPath("//input[@name='lastname']"));
-            LastName.SendKeys("PEREZ");
-            IWebElement Phone = driver.FindElement(By.XPath("//input[@name='reg_email__']"));
-            Phone.SendKeys("4777902377");
-            IWebElement Password = driver.FindElement(By.XPath("//input[@name='reg_passwd__']"));
-            Password.SendKeys("Open12345");
-            
+            driver.FindElement(By.Name(element)).SendKeys(value);
         }
-        public static void Birthday()
+        public static void DropDown(string element, string value)
         {
-            SelectElement DrpDay = new SelectElement(driver.FindElement(By.XPath("//select[@id='day']")));
-            SelectElement DrpMonth = new SelectElement(driver.FindElement(By.XPath("//select[@id='month']")));
-            SelectElement DrpYear = new SelectElement(driver.FindElement(By.XPath("//select[@id='year']")));
-            DrpDay.SelectByValue("21");
-            DrpMonth.SelectByValue("8");
-            DrpYear.SelectByValue("1988");
-            Program obj4 = new Program();
-            obj4.WaitForElement(By.XPath("//label[contains(text(),'Female')]"), 5);
-            IWebElement RBFemale = driver.FindElement(By.XPath("//label[contains(text(),'Female')]"));
-            Click(RBFemale);
+            new SelectElement(driver.FindElement(By.Id(element))).SelectByValue(value);
         }
     }
 }
