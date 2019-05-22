@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
-
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace Exercise_2___Development_C
 {
@@ -27,6 +27,7 @@ namespace Exercise_2___Development_C
         {
         }
 
+        
         
         public static void WaitForElement(By Locator, int seconds)
         {
@@ -62,6 +63,7 @@ namespace Exercise_2___Development_C
         public static void EnterText(string element, string value)
         {
             driver.FindElement(By.Name(element)).SendKeys(value);
+            Console.WriteLine(value);
         }
         public static void DropDown(string element, string value)
         {

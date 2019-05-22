@@ -12,6 +12,22 @@ namespace Exercise_2___Development_C
 {
     class Execution
     {
+        private string actualTittle;
+
+        public void SetActualTitle(string ActualTitle)
+        {
+
+            ActualTitle = Program.driver.Title;
+            this.actualTittle = ActualTitle;
+
+        }
+
+        public string GetActualTitle()
+        {
+
+            return this.actualTittle;
+
+        }
         [SetUp]
         public static void OpenBrowser()
         {
@@ -22,10 +38,11 @@ namespace Exercise_2___Development_C
         public void execution()
         {
             Program.WaitForElement(By.XPath("//div[@class='mbl _3m9 _6o _6s _mf']"), 5);
-            string actualTittle = Program.driver.Title;
+            Execution page1 = new Execution();
+            page1.SetActualTitle(actualTittle);
+            Console.WriteLine(page1.GetActualTitle());
             string Text = "Facebook - Log In or Sign Up";
-            Console.WriteLine(actualTittle);
-            Program.VAsserts(actualTittle, Text);
+            Program.VAsserts(page1.GetActualTitle(), Text);
             Program.WaitForElement(By.XPath("//h2[@class='inlineBlock _3ma _6n _6s _6v']"), 5);
             Program.EnterText("firstname", "Elizabeth");
             Program.EnterText("lastname", "Perez");
@@ -40,6 +57,8 @@ namespace Exercise_2___Development_C
             Program.VAsserts(ValidateText, ExpectedText);
             Console.WriteLine("Test execution completed");
         }
+
+        
         [TearDown]
         public void Close()
         {
